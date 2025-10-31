@@ -33,8 +33,8 @@ def generate_diff(file_path1: str, file_path2: str) -> str:
                 res.append(f"{current_indepent}+ {key}: {value2}")
                 continue
 
-            res.append(f"{current_indepent}+ {key}: {value2}")
+            res.append(f"{current_indepent}  {key}: {value2}")
         
-        return '\n'.join(["{", *res, bracket_depth + "}"])
+        return '\n'.join(["{", *res, bracket_depth + "}"]).lower()
 
     return inner([*file_parsed1.keys(), *file_parsed2.keys()], 0)
