@@ -11,7 +11,7 @@ def _parse(extension: str, data) -> dict:
         case 'yml' | 'yaml':
             return yaml.load(data, Loader=yaml.Loader)
         case _:
-            raise Exception(f'unknown file format: {extension}')
+            raise ValueError(f'unknown file format: {extension}')
         
 
 def parse_file(file_path: str) -> dict:

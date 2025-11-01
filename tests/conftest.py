@@ -9,7 +9,9 @@ def path_test_dir():
 
 
 @pytest.fixture
-def expected_stylish_file(path_test_dir):
-    file_path = os.path.join(path_test_dir, 'test_data', 'expected_stylish.txt')
-    with open(file=file_path, mode='r', encoding='utf-8') as f:
-        return f.read()
+def read_expected_file(path_test_dir):
+    def read_file(f):
+        file_path = os.path.join(path_test_dir, 'test_data', f'expected_{f}.txt')  # noqa: E501
+        with open(file=file_path, mode='r', encoding='utf-8') as f:
+            return f.read()
+    return read_file

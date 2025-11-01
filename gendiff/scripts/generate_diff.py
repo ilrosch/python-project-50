@@ -1,5 +1,3 @@
-import os
-
 from ._build_diff_tree import build_diff_tree
 from ._parse import parse_file
 from .formatters.formatter import formatter
@@ -13,4 +11,4 @@ def generate_diff(file_path1: str, file_path2: str, format: str):
         return formatter(format, diff_tree)
     except Exception as err:
         print(err)
-        os._exit(1)
+        return err
