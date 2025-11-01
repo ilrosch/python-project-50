@@ -1,40 +1,16 @@
-from .parse import parse
+import os
 
-STEP_SIZE = 2
+from ._build_diff_tree import build_diff_tree
+from ._parse import parse_file
+from .formatters.formatter import formatter
 
 
-def generate_diff(file_path1: str, file_path2: str) -> str:
-    file_parsed1 = dict(parse(file_path1))
-    file_parsed2 = dict(parse(file_path2))
-
-    def inner(data: list, depth: int) -> str:
-        file_keys = list(set(data))
-        file_keys.sort()
-
-        current_depth = depth + STEP_SIZE
-        current_indepent = " " * current_depth
-        bracket_depth = " " * depth
-
-        res = []
-        for key in file_keys:
-            value1 = file_parsed1.get(key, None)
-            value2 = file_parsed2.get(key, None)
-
-            if key not in file_parsed1:
-                res.append(f"{current_indepent}+ {key}: {value2}")
-                continue
-            
-            if key not in file_parsed2:
-                res.append(f"{current_indepent}- {key}: {value1}")
-                continue
-
-            if value1 != value2:
-                res.append(f"{current_indepent}- {key}: {value1}")
-                res.append(f"{current_indepent}+ {key}: {value2}")
-                continue
-
-            res.append(f"{current_indepent}  {key}: {value2}")
-        
-        return '\n'.join(["{", *res, bracket_depth + "}"]).lower()
-
-    return inner([*file_parsed1.keys(), *file_parsed2.keys()], 0)
+def generate_diff(file_path1: str, file_path2: str, format: str):
+    try:
+        data_a = parse_file(file_path1)
+        data_b = parse_file(file_path2)
+        diff_tree = build_diff_tree(data_a, data_b)
+        return formatter(format, diff_tree)
+    except Exception as err:
+        print(err)
+        os._exit(1)

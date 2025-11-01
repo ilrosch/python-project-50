@@ -1,24 +1,13 @@
 import os
 
+import pytest
+
 from gendiff import generate_diff
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
 
-
-def test_gendiff():
-    file_path1_json = os.path.join(current_dir, "test_data", "file1.json")
-    file_path2_json = os.path.join(current_dir, "test_data", "file2.json")
-
-    file_path1_yml = os.path.join(current_dir, "test_data", "file1.yml")
-    file_path2_yml = os.path.join(current_dir, "test_data", "file2.yml")
-
-    expected_path = os.path.join(current_dir, "test_data", "expected.txt")
-
-    with open(expected_path) as f:
-        expected = f.read()
-        res_json = generate_diff(file_path1_json, file_path2_json)
-        assert res_json == expected
-        res_yml = generate_diff(file_path1_yml, file_path2_yml)
-        assert res_yml == expected
-        res_json_yml = generate_diff(file_path1_json, file_path2_yml)
-        assert res_json_yml == expected
+@pytest.mark.parametrize('format', ['json', 'yml', 'yaml'])
+def test_gendiff_stylish(path_test_dir, expected_stylish_file, format):
+    file_path1 = os.path.join(path_test_dir, 'test_data', f'file1.{format}')
+    file_path2 = os.path.join(path_test_dir, 'test_data', 'file2.json')
+    actual = generate_diff(file_path1, file_path2, 'stylish')
+    assert actual == expected_stylish_file
