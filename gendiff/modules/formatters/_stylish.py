@@ -45,8 +45,8 @@ def stylish(tree: list) -> str:
                 case 'deleted':
                     return _get_line(depth, '-', n['key'], n['value'])
                 case 'changed':
-                    old = _get_line(depth, '-', n['key'], n['value'][0])
-                    new = _get_line(depth, '+', n['key'], n['value'][1])
+                    old = _get_line(depth, '-', n['key'], n['value']['old'])
+                    new = _get_line(depth, '+', n['key'], n['value']['new'])
                     return '\n'.join([old, new])
                 case 'unchanged':
                     return _get_line(depth, ' ', n['key'], n['value'])

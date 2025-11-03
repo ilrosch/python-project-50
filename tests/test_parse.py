@@ -3,7 +3,7 @@ import os
 
 import pytest
 
-from gendiff.scripts._parse import parse_file
+from gendiff.modules.parse import parse_file
 
 
 def test_parse_unknown(path_test_dir):

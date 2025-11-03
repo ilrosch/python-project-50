@@ -1,6 +1,6 @@
-from ._build_diff_tree import build_diff_tree
-from ._parse import parse_file
-from .formatters.formatter import formatter
+from .build_diff_tree import build_diff_tree
+from .formatter import formatter
+from .parse import parse_file
 
 
 def generate_diff(file_path1: str, file_path2: str, format: str):
@@ -10,5 +10,4 @@ def generate_diff(file_path1: str, file_path2: str, format: str):
         diff_tree = build_diff_tree(data_a, data_b)
         return formatter(format, diff_tree)
     except Exception as err:
-        print(err)
         return err

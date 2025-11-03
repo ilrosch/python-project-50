@@ -24,8 +24,8 @@ def plain(tree: list) -> str:
             case 'deleted':
                 return f"Property '{acc[1:]}' was removed"
             case 'changed':
-                old = _normalize(node['value'][0])
-                new = _normalize(node['value'][1])
+                old = _normalize(node['value']['old'])
+                new = _normalize(node['value']['new'])
                 return f"Property '{acc[1:]}' was updated. From {old} to {new}"
         return ''
     res = map(iter, tree)
