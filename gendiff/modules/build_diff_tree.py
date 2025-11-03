@@ -18,7 +18,7 @@ def build_diff_tree(a: dict, b: dict) -> list[dict]:
             }
         
         if v_a != v_b:
-            return {'type': 'changed', 'key': key, 'value': {'old': v_a, 'new': v_b}}
+            return {'type': 'changed', 'key': key, 'value': {'old': v_a, 'new': v_b}}  # noqa: E501
         
         return {'type': 'unchanged', 'key': key, 'value': v_a}
 
