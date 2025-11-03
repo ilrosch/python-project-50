@@ -3,7 +3,7 @@ from .formatter import formatter
 from .parse import parse_file
 
 
-def generate_diff(file_path1: str, file_path2: str, format: str):
+def generate_diff(file_path1: str, file_path2: str, format: str = "stylish"):
     try:
         data_a = parse_file(file_path1)
         data_b = parse_file(file_path2)
