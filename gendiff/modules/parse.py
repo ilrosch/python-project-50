@@ -9,7 +9,7 @@ def _parse(extension: str, data) -> dict:
         case 'json':
             return json.load(data)
         case 'yml' | 'yaml':
-            return yaml.load(data, Loader=yaml.Loader)
+            return yaml.load(data, Loader=yaml.SafeLoader)
         case _:
             raise ValueError(f'unknown file format: {extension}')
         
